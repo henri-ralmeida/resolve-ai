@@ -4,9 +4,9 @@ Aplicação Full Stack para registrar, acompanhar e resolver ocorrências em con
 
 ## Funcionalidades
 
-- Solicitante: cadastro/login, abertura de ocorrência com imagem opcional, consulta apenas das próprias ocorrências, comentários, histórico e avaliação após resolução.
-- Gestor: consulta geral e filtros por categoria/status/prioridade, definição de prioridade e responsável, atualização de status com observação obrigatória, comentários, solução aplicada e dashboard.
-- Fluxo: `Aberta → Em análise → Em atendimento → Resolvida`; uma ocorrência ativa também pode ser cancelada. `Resolvida` e `Cancelada` são estados finais. Cada transição gera histórico com estado anterior/novo, data/hora, Gestor e observação.
+- Solicitante: o cadastro público sempre cria esse perfil; pode entrar, abrir ocorrência com título, descrição, categoria, localização e imagem opcional, acompanhar apenas as próprias, comentar, consultar o histórico e avaliar somente após a resolução.
+- Gestor: perfil provisionado pela configuração inicial; visualiza todas as ocorrências, filtra por categoria/status/prioridade, altera prioridade e responsável, atualiza status com observação, comenta, registra a solução aplicada e consulta o dashboard. Prioridade, responsável, status, solução e dashboard são restritos ao Gestor; ambos os perfis podem comentar.
+- Ciclo de vida: `Aberta → Em análise → Em atendimento → Resolvida` (`Analisar`, `Iniciar atendimento`, `Concluir`). De `Aberta`, `Em análise` ou `Em atendimento`, o Gestor também pode escolher `Cancelar → Cancelada`. `Resolvida` e `Cancelada` são estados finais, sem reabertura. Toda transição exige observação e registra status anterior/novo, data e hora, usuário que fez a alteração e observação.
 
 ## Arquitetura
 
@@ -103,6 +103,18 @@ A suíte exercita HTTP real com PostgreSQL: cadastro/login, isolamento por Solic
 | GET | `/api/dashboard` | Gestor |
 
 Os corpos, formatos de resposta e erros estão documentados no Swagger. O formulário de abertura usa `multipart/form-data` e aceita JPEG, PNG, WebP ou GIF de até 5 MB; o conteúdo é conferido além da extensão/MIME.
+
+### Coleção Insomnia e exemplos cURL
+
+O arquivo [ResolveAi-Insomnia.json](./ResolveAi-Insomnia.json) contém as rotas da API agrupadas por perfil e fluxo, com ambiente local, contas demonstrativas, exemplos de corpos, captura automática dos tokens e dos IDs retornados. Ele não dispara chamadas ao importar: cada requisição é enviada manualmente.
+
+1. No Insomnia, escolha **Import → File** e selecione `ResolveAi-Insomnia.json`.
+2. Inicie a aplicação com Docker. Se ainda não criou as contas e amostras de demonstração, execute uma vez o comando de carga descrito em **Dados de demonstração**.
+3. Na pasta **00 — Início e autenticação**, envie **Verificar API e PostgreSQL**, depois faça login como Gestor e Solicitante. As respostas salvam os tokens no ambiente ativo; o cadastro público também pode ser usado para criar um Solicitante novo.
+4. Envie **Abrir ocorrência (sem imagem)** como Solicitante. A resposta guarda `occurrence_id`; então siga as requisições numeradas de atendimento na pasta **02 — Gestor: fila e atendimento**. Por fim, volte ao Solicitante para ver histórico e avaliar a ocorrência resolvida.
+5. Para mostrar os comandos, abra o menu da requisição e use **Generate Code / cURL**. Faça isso depois do login para que o exemplo de uma rota protegida já use o token capturado.
+
+As credenciais incluídas são apenas as contas locais da carga de demonstração e podem ser alteradas no ambiente do Insomnia. O login alternativo usa o Gestor inicial do Compose. O cadastro de exemplo tem e-mail fixo; para repeti-lo, altere `new_requester_email`. A requisição com imagem aponta inicialmente para `frontend/src/assets/hero.png` neste checkout; ajuste o caminho se o projeto estiver em outra pasta. As pastas de permissões/transições inválidas e cancelamentos são exemplos manuais adicionais, não fazem parte da sequência principal.
 
 ## Deploy em Cloud
 

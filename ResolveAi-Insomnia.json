@@ -1,0 +1,1788 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-26T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v11.0.2",
+  "resources": [
+    {
+      "_id": "wrk_resolveai",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Resolve Aí — API Hackathon Fase 05",
+      "description": "Coleção de demonstração manual. Envie as requisições individualmente; nenhum dado é disparado automaticamente.",
+      "scope": "collection",
+      "metaSortKey": 1
+    },
+    {
+      "_id": "env_resolveai",
+      "_type": "environment",
+      "parentId": "wrk_resolveai",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "manager_email": "demo.gestor@resolveai.local",
+        "manager_password": "Gestor123!",
+        "initial_manager_email": "gestor@resolveai.local",
+        "initial_manager_password": "Gestor123!",
+        "requester_email": "demo.solicitante@resolveai.local",
+        "requester_password": "Solicitante123!",
+        "new_requester_name": "Henrique Demo",
+        "new_requester_email": "henrique.insomnia@resolveai.local",
+        "new_requester_password": "Solicitante123!",
+        "manager_token": "",
+        "requester_token": "",
+        "manager_id": "",
+        "requester_id": "",
+        "assignee_id": "",
+        "occurrence_id": "",
+        "cancel_open_id": "",
+        "cancel_analysis_id": "",
+        "cancel_attending_id": "",
+        "invalid_transition_id": ""
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "manager_email",
+          "manager_password",
+          "initial_manager_email",
+          "initial_manager_password",
+          "requester_email",
+          "requester_password",
+          "new_requester_name",
+          "new_requester_email",
+          "new_requester_password",
+          "manager_token",
+          "requester_token",
+          "manager_id",
+          "requester_id",
+          "assignee_id",
+          "occurrence_id",
+          "cancel_open_id",
+          "cancel_analysis_id",
+          "cancel_attending_id",
+          "invalid_transition_id"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 2
+    },
+    {
+      "_id": "jar_resolveai",
+      "_type": "cookie_jar",
+      "parentId": "wrk_resolveai",
+      "name": "Default Jar",
+      "cookies": [],
+      "metaSortKey": 3
+    },
+    {
+      "_id": "fld_start",
+      "_type": "request_group",
+      "parentId": "wrk_resolveai",
+      "name": "00 — Início e autenticação",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 10
+    },
+    {
+      "_id": "fld_requester",
+      "_type": "request_group",
+      "parentId": "wrk_resolveai",
+      "name": "01 — Solicitante: abrir e acompanhar",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 11
+    },
+    {
+      "_id": "fld_manager",
+      "_type": "request_group",
+      "parentId": "wrk_resolveai",
+      "name": "02 — Gestor: fila e atendimento",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 12
+    },
+    {
+      "_id": "fld_rules",
+      "_type": "request_group",
+      "parentId": "wrk_resolveai",
+      "name": "03 — Permissões e transições inválidas",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 13
+    },
+    {
+      "_id": "fld_cancel",
+      "_type": "request_group",
+      "parentId": "wrk_resolveai",
+      "name": "04 — Cancelamentos do ciclo de vida",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 14
+    },
+    {
+      "_id": "req_100",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/health",
+      "name": "Verificar API e PostgreSQL",
+      "description": "Esperado: 200 com status healthy e database ready.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_100_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 100,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_101",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/openapi/v1.json",
+      "name": "Abrir especificação OpenAPI",
+      "description": "Mostra o contrato publicado pela própria API.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_101_accept"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 101,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_102",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/login",
+      "name": "Login Gestor — conta da carga demo",
+      "description": "Executar antes das requisições de Gestor. Salva manager_token e manager_id.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"{{ _.manager_email }}\",\n  \"password\": \"{{ _.manager_password }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_102_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_102_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 102,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.token && body.user) {\n    insomnia.environment.set(\"manager_token\", body.token);\n    insomnia.environment.set(\"manager_id\", body.user.id);\n  }\n}"
+    },
+    {
+      "_id": "req_103",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/login",
+      "name": "Login Gestor — configuração inicial do Compose",
+      "description": "Alternativa se o banco não recebeu a carga demo. Também atualiza manager_token.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"{{ _.initial_manager_email }}\",\n  \"password\": \"{{ _.initial_manager_password }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_103_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_103_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 103,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.token && body.user) {\n    insomnia.environment.set(\"manager_token\", body.token);\n    insomnia.environment.set(\"manager_id\", body.user.id);\n  }\n}"
+    },
+    {
+      "_id": "req_104",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/login",
+      "name": "Login Solicitante — conta da carga demo",
+      "description": "Executar antes das requisições de Solicitante. Salva requester_token e requester_id; requer carga demo.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"{{ _.requester_email }}\",\n  \"password\": \"{{ _.requester_password }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_104_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_104_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 104,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.token && body.user) {\n    insomnia.environment.set(\"requester_token\", body.token);\n    insomnia.environment.set(\"requester_id\", body.user.id);\n  }\n}"
+    },
+    {
+      "_id": "req_105",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/register",
+      "name": "Cadastrar novo Solicitante",
+      "description": "Opcional: cadastro público sempre cria Solicitante. Se retornar 409 ao repetir, altere new_requester_email no ambiente.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"{{ _.new_requester_name }}\",\n  \"email\": \"{{ _.new_requester_email }}\",\n  \"password\": \"{{ _.new_requester_password }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_105_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_105_type"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 105,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.token && body.user) {\n    insomnia.environment.set(\"requester_token\", body.token);\n    insomnia.environment.set(\"requester_id\", body.user.id);\n  }\n}"
+    },
+    {
+      "_id": "req_106",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/me",
+      "name": "Consultar identidade do Gestor",
+      "description": "Requer Login Gestor executado.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_106_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 106,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_107",
+      "_type": "request",
+      "parentId": "fld_start",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/auth/me",
+      "name": "Consultar identidade do Solicitante",
+      "description": "Requer Login Solicitante ou Cadastro executado.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_107_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 107,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_108",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Abrir ocorrência (sem imagem)",
+      "description": "Cria ocorrência repetível; salva occurrence_id para as próximas chamadas.",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Lâmpada queimada no corredor"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_108_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 108,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"occurrence_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_109",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Abrir ocorrência (com imagem)",
+      "description": "Anexa frontend/src/assets/hero.png. Se o projeto estiver em outro caminho, ajuste o caminho do campo Image. Também atualiza occurrence_id para as próximas chamadas.",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Infiltração próxima à janela"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          },
+          {
+            "name": "Image",
+            "type": "file",
+            "fileName": "H:\\Estudos\\Github\\hackaton\\frontend\\src\\assets\\hero.png"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_109_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 109,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"occurrence_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_110",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Listar minhas ocorrências",
+      "description": "O Solicitante recebe somente as próprias ocorrências.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_110_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 110,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_111",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}",
+      "name": "Detalhar minha ocorrência criada",
+      "description": "Use após Abrir ocorrência (sem imagem).",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_111_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 111,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_112",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/history",
+      "name": "Consultar histórico da minha ocorrência",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_112_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 112,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_113",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/comments",
+      "name": "Adicionar comentário como Solicitante",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"text\": \"Obrigado. Vou acompanhar a atualização por aqui.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_113_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_113_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 113,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_114",
+      "_type": "request",
+      "parentId": "fld_requester",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/evaluation",
+      "name": "Avaliar ocorrência resolvida",
+      "description": "Envie somente depois que o Gestor marcar Resolvida; cada ocorrência aceita uma avaliação.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"score\": 5,\n  \"comment\": \"Atendimento concluído.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_114_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_114_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 114,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_115",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Listar todas as ocorrências",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_115_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 115,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_116",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Filtrar por categoria, status e prioridade",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "name": "category",
+          "value": "Infraestrutura",
+          "disabled": false,
+          "id": "filter_category"
+        },
+        {
+          "name": "status",
+          "value": "Aberta",
+          "disabled": false,
+          "id": "filter_status"
+        },
+        {
+          "name": "priority",
+          "value": "Alta",
+          "disabled": false,
+          "id": "filter_priority"
+        }
+      ],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_116_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 116,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_117",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/users/managers",
+      "name": "Listar Gestores para atribuição",
+      "description": "Salva o primeiro Gestor em assignee_id para usar no pedido de atribuição.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_117_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 117,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (Array.isArray(body) && body.length > 0) insomnia.environment.set(\"assignee_id\", body[0].id);\n}"
+    },
+    {
+      "_id": "req_118",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/dashboard",
+      "name": "Consultar dashboard",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_118_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 118,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_119",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}",
+      "name": "Detalhar ocorrência criada",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_119_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 119,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_120",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/history",
+      "name": "Consultar histórico da ocorrência",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_120_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 120,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_121",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/priority",
+      "name": "Alterar prioridade para Alta",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"priority\": \"Alta\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_121_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_121_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 121,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_122",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/assignee",
+      "name": "Atribuir primeiro Gestor da lista",
+      "description": "Envie antes Listar Gestores para atribuição.",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"assigneeId\": \"{{ _.assignee_id }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_122_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_122_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 122,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_123",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/comments",
+      "name": "Adicionar comentário como Gestor",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"text\": \"Recebemos a solicitação e iniciaremos a análise.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_123_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_123_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 123,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_124",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/status",
+      "name": "01 — Analisar: Aberta → Em análise",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"EmAnalise\",\n  \"observation\": \"Solicitação conferida e encaminhada para análise.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_124_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_124_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 124,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_125",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/status",
+      "name": "02 — Iniciar atendimento: Em análise → Em atendimento",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"EmAtendimento\",\n  \"observation\": \"Equipe responsável iniciou o atendimento.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_125_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_125_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 125,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_126",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/solution",
+      "name": "Registrar solução aplicada",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"solution\": \"Componente substituído e funcionamento verificado no local.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_126_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_126_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 126,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_127",
+      "_type": "request",
+      "parentId": "fld_manager",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/status",
+      "name": "03 — Concluir: Em atendimento → Resolvida",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Resolvida\",\n  \"observation\": \"Serviço concluído e resultado conferido.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_127_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_127_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 127,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_128",
+      "_type": "request",
+      "parentId": "fld_rules",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.occurrence_id }}/priority",
+      "name": "Solicitante tenta alterar prioridade (esperado 403)",
+      "description": "Contraexemplo de autorização: somente Gestor altera prioridade.",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"priority\": \"Critica\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_128_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_128_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 128,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_129",
+      "_type": "request",
+      "parentId": "fld_rules",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Criar ocorrência para demonstrar salto inválido",
+      "description": "Cria ocorrência em Aberta e guarda invalid_transition_id.",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Teste de transição inválida"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_129_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 129,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"invalid_transition_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_130",
+      "_type": "request",
+      "parentId": "fld_rules",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.invalid_transition_id }}/status",
+      "name": "Tentar Aberta → Resolvida (esperado 409)",
+      "description": "O servidor deve responder 409 e não alterar o status nem criar histórico.",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Resolvida\",\n  \"observation\": \"Teste manual de transição não permitida.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_130_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_130_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 130,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_131",
+      "_type": "request",
+      "parentId": "fld_rules",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/00000000-0000-0000-0000-000000000000",
+      "name": "Consultar ID inexistente (esperado 404)",
+      "description": "Exemplo seguro de resposta para recurso que não existe.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_131_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 131,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_132",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Criar ocorrência para cancelar ainda Aberta",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Cancelamento: ocorrência Aberta"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_132_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 132,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"cancel_open_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_133",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_open_id }}/status",
+      "name": "Cancelar ocorrência Aberta → Cancelada",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Cancelada\",\n  \"observation\": \"Solicitação cancelada ainda na triagem inicial.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_133_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_133_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 133,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_134",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Criar ocorrência para cancelar em Em análise",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Cancelamento: ocorrência em análise"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_134_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 134,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"cancel_analysis_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_135",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_analysis_id }}/status",
+      "name": "Avançar até Em análise",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"EmAnalise\",\n  \"observation\": \"Ocorrência recebida para análise.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_135_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_135_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 135,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_136",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_analysis_id }}/status",
+      "name": "Cancelar Em análise → Cancelada",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Cancelada\",\n  \"observation\": \"Solicitação cancelada durante a análise.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_136_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_136_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 136,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_137",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences",
+      "name": "Criar ocorrência para cancelar em Em atendimento",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "Title",
+            "value": "Cancelamento: ocorrência em atendimento"
+          },
+          {
+            "name": "Description",
+            "value": "Registro criado manualmente pelo Insomnia para demonstrar o atendimento e o histórico."
+          },
+          {
+            "name": "Category",
+            "value": "Infraestrutura"
+          },
+          {
+            "name": "Location",
+            "value": "Bloco A — área comum"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_137_accept"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.requester_token }}"
+      },
+      "metaSortKey": 137,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "afterResponseScript": "if (insomnia.response.code >= 200 && insomnia.response.code < 300) {\n  const body = insomnia.response.json();\n  if (body && body.id) insomnia.environment.set(\"cancel_attending_id\", body.id);\n}"
+    },
+    {
+      "_id": "req_138",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_attending_id }}/status",
+      "name": "Avançar até Em análise (atendimento)",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"EmAnalise\",\n  \"observation\": \"Ocorrência analisada antes do atendimento.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_138_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_138_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 138,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_139",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_attending_id }}/status",
+      "name": "Avançar até Em atendimento",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"EmAtendimento\",\n  \"observation\": \"Equipe iniciou atendimento da ocorrência.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_139_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_139_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 139,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    },
+    {
+      "_id": "req_140",
+      "_type": "request",
+      "parentId": "fld_cancel",
+      "modified": 1780000000000,
+      "created": 1780000000000,
+      "url": "{{ _.base_url }}/api/occurrences/{{ _.cancel_attending_id }}/status",
+      "name": "Cancelar Em atendimento → Cancelada",
+      "description": "",
+      "method": "PATCH",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"status\": \"Cancelada\",\n  \"observation\": \"Solicitação cancelada durante o atendimento.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json",
+          "id": "hdr_140_accept"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "hdr_140_type"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.manager_token }}"
+      },
+      "metaSortKey": 140,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global"
+    }
+  ]
+}
