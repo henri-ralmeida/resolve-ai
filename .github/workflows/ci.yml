@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: resolveai_node_test
+          POSTGRES_USER: resolveai_test
+          POSTGRES_PASSWORD: resolveai_test_pw
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U resolveai_test -d resolveai_node_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql://resolveai_test:resolveai_test_pw@127.0.0.1:5432/resolveai_node_test?schema=public
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Instalar backend
+        working-directory: backend
+        run: npm ci
+      - name: Backend
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ env.TEST_DATABASE_URL }}
+        run: |
+          npx prisma validate
+          npx prisma generate
+          npx prisma migrate deploy
+          npm test
+      - name: Frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run lint
+          npm test
+          npm run build
+      - name: Docker image
+        run: docker build --tag resolve-ai:ci .

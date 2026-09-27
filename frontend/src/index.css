@@ -1,0 +1,38 @@
+:root {
+  font-family: "Manrope Variable", Manrope, sans-serif;
+  color: #173a36;
+  background: #f3f5ef;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --paper: #f3f5ef;
+  --paper-deep: #e6ebe2;
+  --surface: #fcfefa;
+  --ink: #173a36;
+  --ink-soft: #244a42;
+  --muted: #64736c;
+  --line: #c9d2ca;
+  --service: #2d6a5b;
+  --service-soft: #dceae3;
+  --signal: #f2c14e;
+  --signal-deep: #a87709;
+  --coral: #d45d4c;
+  --sky: #397086;
+  --shadow: 0 24px 60px rgba(23, 58, 54, .1);
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--paper); }
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--paper);
+  background-image: linear-gradient(rgba(23, 58, 54, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 58, 54, .035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+::selection { background: var(--signal); color: var(--ink); }
+:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+#root { min-height: 100vh; }

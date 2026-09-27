@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-resolveai}
+      POSTGRES_USER: ${POSTGRES_USER:-resolveai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-resolveai_dev}
+    volumes:
+      - postgres-node-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-resolveai} -d ${POSTGRES_DB:-resolveai}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-resolveai}:${POSTGRES_PASSWORD:-resolveai_dev}@postgres:5432/${POSTGRES_DB:-resolveai}?schema=public
+      JWT_KEY: ${JWT_KEY:-local-compose-key-change-before-production-2026}
+      ADMIN_NAME: ${ADMIN_NAME:-Gestor Demo}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-gestor@resolveai.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Gestor123!}
+      UPLOADS_PATH: /app/uploads
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - uploads-node-data:/app/uploads
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres-node-data:
+  uploads-node-data:

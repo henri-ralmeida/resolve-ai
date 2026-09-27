@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  Solicitante
+  Gestor
+}
+
+enum OccurrenceStatus {
+  Aberta
+  EmAnalise
+  EmAtendimento
+  Resolvida
+  Cancelada
+}
+
+enum Priority {
+  Baixa
+  Media
+  Alta
+  Critica
+}
+
+model User {
+  id                  String          @id @default(uuid()) @db.Uuid
+  name                String          @db.VarChar(120)
+  email               String          @unique @db.VarChar(254)
+  passwordHash        String
+  role                UserRole        @default(Solicitante)
+  createdAt           DateTime        @default(now())
+  requestedOccurrences Occurrence[]   @relation("Requester")
+  assignedOccurrences Occurrence[]    @relation("Assignee")
+  comments            Comment[]
+  statusChanges       StatusHistory[]
+  evaluations         Evaluation[]
+}
+
+model Occurrence {
+  id              String           @id @default(uuid()) @db.Uuid
+  requesterId     String           @db.Uuid
+  requester       User             @relation("Requester", fields: [requesterId], references: [id], onDelete: Restrict)
+  assigneeId      String?          @db.Uuid
+  assignee        User?            @relation("Assignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  title           String           @db.VarChar(160)
+  description     String           @db.VarChar(4000)
+  category        String           @db.VarChar(100)
+  location        String           @db.VarChar(300)
+  imagePath       String?          @db.VarChar(500)
+  priority        Priority         @default(Media)
+  status          OccurrenceStatus @default(Aberta)
+  appliedSolution String?          @db.VarChar(4000)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  comments        Comment[]
+  history         StatusHistory[]
+  evaluation      Evaluation?
+
+  @@index([status, priority, category])
+  @@index([requesterId])
+  @@index([assigneeId])
+}
+
+model Comment {
+  id           String     @id @default(uuid()) @db.Uuid
+  occurrenceId String     @db.Uuid
+  occurrence   Occurrence @relation(fields: [occurrenceId], references: [id], onDelete: Cascade)
+  authorId     String     @db.Uuid
+  author       User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  text         String     @db.VarChar(2000)
+  createdAt    DateTime   @default(now())
+
+  @@index([occurrenceId, createdAt])
+}
+
+model StatusHistory {
+  id             String           @id @default(uuid()) @db.Uuid
+  occurrenceId   String           @db.Uuid
+  occurrence     Occurrence       @relation(fields: [occurrenceId], references: [id], onDelete: Cascade)
+  previousStatus OccurrenceStatus
+  newStatus      OccurrenceStatus
+  changedAt      DateTime         @default(now())
+  changedById    String           @db.Uuid
+  changedBy      User             @relation(fields: [changedById], references: [id], onDelete: Restrict)
+  observation    String           @db.VarChar(500)
+
+  @@index([occurrenceId, changedAt])
+}
+
+model Evaluation {
+  id           String     @id @default(uuid()) @db.Uuid
+  occurrenceId String     @unique @db.Uuid
+  occurrence   Occurrence @relation(fields: [occurrenceId], references: [id], onDelete: Cascade)
+  requesterId  String     @db.Uuid
+  requester    User       @relation(fields: [requesterId], references: [id], onDelete: Restrict)
+  score        Int
+  comment      String?    @db.VarChar(1000)
+  createdAt    DateTime   @default(now())
+}

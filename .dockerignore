@@ -1,0 +1,10 @@
+**/bin
+**/obj
+**/node_modules
+frontend/dist
+.git
+.env
+uploads
+backend/uploads
+src/ResolveAi.Api/uploads
+**/*.user
